@@ -7,6 +7,10 @@ More information about Apache Tika can be found here: http://tika.apache.org/
 [![Code Climate](https://codeclimate.com/github/ricn/rika.png)](https://codeclimate.com/github/ricn/rika)
 [![Build Status](https://travis-ci.org/ricn/rika.png?branch=master)](https://travis-ci.org/ricn/rika)
 
+## Jeremy's modifications
+basically, just using my own version of Tika with special email parsing fixes and removes bouncycastle from Tika-parsers's requirements because everything is awful.
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
