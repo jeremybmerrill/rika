@@ -8,7 +8,7 @@ More information about Apache Tika can be found here: http://tika.apache.org/
 [![Build Status](https://travis-ci.org/ricn/rika.png?branch=master)](https://travis-ci.org/ricn/rika)
 
 ## Jeremy's modifications
-basically, just using my own version of Tika with special email parsing fixes and removes bouncycastle from Tika-parsers's requirements because everything is awful.
+basically, just using my own version of Tika with special email parsing fixes, adds X-Attachments metadata key (listing attachment filenames from emails) and removes bouncycastle from Tika-parsers's requirements because everything is awful.
 
 
 ## Installation
