@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rika/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "rika"
+  gem.name          = "rika-stevedore"
   gem.version       = Rika::VERSION
-  gem.authors       = ["Richard Nyström"]
-  gem.email         = ["ricny046@gmail.com"]
-  gem.description   = %q{ A JRuby wrapper for Apache Tika to extract text and metadata from various file formats. }
-  gem.summary       = %q{ A JRuby wrapper for Apache Tika to extract text and metadata from various file formats. }
-  gem.homepage      = "https://github.com/ricn/rika"
+  gem.authors       = ["Richard Nyström", "Jeremy B. Merrill"]
+  gem.email         = ["jeremybmerrill@gmail.com"]
+  gem.description   = %q{ A JRuby wrapper for Apache Tika to extract text and metadata from various file formats, slightly modified. }
+  gem.summary       = %q{ A JRuby wrapper for Apache Tika to extract text and metadata from various file formats, slightly modified. }
+  gem.homepage      = "https://github.com/jeremybmerrill/rika"
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
