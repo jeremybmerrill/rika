@@ -11,6 +11,8 @@ Dir[File.join(File.dirname(__FILE__), "../target/dependency/*.jar")].each do |ja
   require jar
 end
 
+$rika_tika ||= nil
+
 # Heavily based on the Apache Tika API: http://tika.apache.org/1.5/api/org/apache/tika/Tika.html
 module Rika
   import org.apache.tika.metadata.Metadata
@@ -39,7 +41,12 @@ module Rika
 
     def initialize(file_location, max_content_length = -1, detector = DefaultDetector.new)
       @uri = file_location
-      @tika = Tika.new(detector)
+      $rika_tika = @tika = if $rika_tika.nil?
+                              puts "creating a new Tika"
+                              Tika.new(detector)
+                           else
+                              $rika_tika
+                           end
       @tika.set_max_string_length(max_content_length)
       @metadata_java = Metadata.new
       @metadata_ruby = nil
