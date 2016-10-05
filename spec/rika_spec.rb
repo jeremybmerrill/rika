@@ -34,7 +34,7 @@ describe Rika::Parser do
   end
 
   it "should raise error if URL does not exists" do
-    lambda { Rika::Parser.new("http://nonsense.com/whatever.pdf") }.should raise_error(IOError)
+    lambda { Rika::Parser.new("http://rika.clearly-non-existent.github.com/whatever.pdf").content }.should raise_error(java.io.FileNotFoundException)
   end
 
   it "should detect file type without a file extension" do
