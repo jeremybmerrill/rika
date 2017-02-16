@@ -10,6 +10,7 @@ More information about Apache Tika can be found here: http://tika.apache.org/
 ## Jeremy's modifications
 basically, just using my own version of Tika with special email parsing fixes, adds X-Attachments metadata key (listing attachment filenames from emails) and removes bouncycastle from Tika-parsers's requirements because everything is awful.
 
+for instance, Tika by itself detects an .eml if the file has "Received: " as the first string of bytes. I've made it so it'll detect an email with that in the first 300 bytes, to cope with leaked emails that have non-standard headers first, then the Received: line.
 
 ## Installation
 
