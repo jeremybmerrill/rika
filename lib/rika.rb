@@ -21,7 +21,10 @@ module Rika
   import org.apache.tika.detect.DefaultDetector
   import java.io.FileInputStream
   import java.net.URL
-
+  import org.apache.tika.sax.BodyContentHandler;
+  import org.apache.tika.parser.AutoDetectParser;
+  import org.apache.tika.parser.ParseContext;
+  import org.apache.tika.parser.html.BoilerpipeContentHandler;
   def self.parse_content_and_metadata(file_location, max_content_length = -1)
     parser = Parser.new(file_location, max_content_length)
     [parser.content, parser.metadata]
@@ -30,6 +33,11 @@ module Rika
   def self.parse_content(file_location, max_content_length = -1)
     parser = Parser.new(file_location, max_content_length)
     parser.content
+  end
+
+  def self.parse_main_content(file_location, max_content_length = -1)
+    parser = Parser.new(file_location, max_content_length)
+    parser.main_content
   end
 
   def self.parse_metadata(file_location)
@@ -54,13 +62,18 @@ module Rika
     end
 
     def content
-      self.parse
+      self.parse!
       @content
+    end
+
+    def main_content
+      self.parse_main_content!
+      @main_content
     end
 
     def metadata
       unless @metadata_ruby
-        self.parse
+        self.parse!
         @metadata_ruby = {}
 
         @metadata_java.names.each do |name|
@@ -104,8 +117,16 @@ module Rika
 
     protected
 
-    def parse
+    def parse!
       @content ||= @tika.parse_to_string(input_stream, @metadata_java).to_s.strip
+    end
+
+    def parse_main_content!
+      text_handler = BodyContentHandler.new 
+      auto_detect_parser = AutoDetectParser.new 
+      context = ParseContext.new 
+      auto_detect_parser.parse(input_stream, BoilerpipeContentHandler.new(text_handler), @metadata_java, context);
+      @main_content = text_handler.to_s
     end
 
     def get_input_type
