@@ -25,6 +25,12 @@ module Rika
   import org.apache.tika.parser.AutoDetectParser;
   import org.apache.tika.parser.ParseContext;
   import org.apache.tika.parser.html.BoilerpipeContentHandler;
+
+  import org.apache.tika.language.translate.GoogleTranslator 
+
+
+
+
   def self.parse_content_and_metadata(file_location, max_content_length = -1)
     parser = Parser.new(file_location, max_content_length)
     [parser.content, parser.metadata]
@@ -145,6 +151,21 @@ module Rika
       else # :http
         URL.new(@uri).open_stream
       end
+    end
+  end
+
+  class Translator
+    def initialize
+      @translator = GoogleTranslator.new
+    end
+
+    def translate(inputtext, source='ru', target='en')
+      # begin
+        puts "translating #{inputtext.size} chars to #{target} at a cost of $#{(inputtext.size / 50000.0).round(2)}"
+        return @translator.translate(inputtext, source, target);
+      # rescue StandardError
+      #   return "Error while translating.";
+      # end
     end
   end
 end
